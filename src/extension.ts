@@ -8,24 +8,30 @@ import { LanguageClient, LanguageClientOptions, StreamInfo, Position as LSPositi
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
-	const axios = require('axios')
+	const axios = require('axios');
 
 	let diagnosticCollection = languages.createDiagnosticCollection("stuff");
 	let diagnostics : Diagnostic[] = [];
 
-	// In this example, we want to start watching the currently open doc
+	// run puppet-sec-lint
+	const cp = require('child_process')
+	cp.exec('puppet-sec-lint', (err:any, stdout:any, stderr:any) => {
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
+		if (err) {
+			console.log('error: ' + err);
+		}
+	});
+
 	let currOpenEditor = window.activeTextEditor;
 	if (currOpenEditor){
 	let currActiveDoc = currOpenEditor.document;
 
-	let onDidChangeDisposable = workspace.onDidChangeTextDocument((event: TextDocumentChangeEvent)=>{
-		if (event.document === currActiveDoc){
-			console.log(event.contentChanges);
+	let onDidChangeDisposable = workspace.onDidSaveTextDocument((document: TextDocument)=>{
 		
-			if([" ","\n"].includes(event.contentChanges[0].text)){
-
+		if (document === currActiveDoc){
 				axios.post('http://localhost:9292', {
-					documentContent: event.document.getText()
+					documentContent: document.getText()
 				})
 				.then((response:any) => {
 					console.log(response.data);
@@ -33,17 +39,18 @@ export function activate(context: ExtensionContext) {
 					diagnostics = [];
 
 					response.data.forEach(function(sin:any) {
-						sin=JSON.parse(sin)
+						sin=JSON.parse(sin);
 
-						let range = new Range(sin.begin_line,sin.begin_char-1,sin.end_line,sin.end_char)
+						let range = new Range(sin.begin_line-1,sin.begin_char-1,sin.end_line-1,sin.end_char);
 					
-						diagnostics.push(new Diagnostic(range, sin.message, DiagnosticSeverity.Error));
+						let newDiagnostic = new Diagnostic(range, sin.message+" - [Recommendation] - "+sin.recommendation, DiagnosticSeverity.Warning);
+						newDiagnostic.source = "Puppet-sec-lint";
+
+						diagnostics.push(newDiagnostic);
 					});
 		
-					diagnosticCollection.set(event.document.uri, diagnostics);
+					diagnosticCollection.set(document.uri, diagnostics);
 				});
-
-			}
 
 		}
 		else {
