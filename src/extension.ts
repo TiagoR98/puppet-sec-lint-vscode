@@ -1,37 +1,34 @@
 'use strict';
 
-import * as path from 'path';
 import { workspace, ExtensionContext } from 'vscode';
 
 import {
 	LanguageClient,
 	LanguageClientOptions,
-	ServerOptions,
-	TransportKind,
 	StreamInfo
 } from 'vscode-languageclient/node';
 
 import * as net from 'net';
 
 let client: LanguageClient;
-export function activate(context: ExtensionContext) {
+let cp: any;
+
+export async function activate(context: ExtensionContext) {
 
 	// run puppet-sec-lint
-	const cp = require('child_process')
-	//cp.exec('puppet-sec-lint', (err:any, stdout:any, stderr:any) => {
-	//	console.log('stdout: ' + stdout);
-	//	console.log('stderr: ' + stderr);
-	//	if (err) {
-	//		console.log('error: ' + err);
-	//	}
-	//});
+	cp = require('child_process');
+	cp.exec('puppet-sec-lint', (err:any, stdout:any, stderr:any) => {
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
+		if (err) {
+			console.log('error: ' + err);
+		}
+	});
 
 	const connectionInfo = {
         port: 5007
     };
 
-	// If the extension is launched in debug mode then the debug server options are used
-	// Otherwise the run options are used
 	const serverOptions = () => {
         // Connect to language server via socket
         const socket = net.connect(connectionInfo);
@@ -61,7 +58,7 @@ export function activate(context: ExtensionContext) {
 	);
 
 	// Start the client. This will also launch the server
-	client.start();
+	setTimeout(() => {  client.start(); }, 1000);
 
 
 
@@ -71,5 +68,6 @@ export function deactivate(): Thenable<void> | undefined {
 	if (!client) {
 		return undefined;
 	}
+	cp.stop();
 	return client.stop();
 }
