@@ -3,7 +3,7 @@
 	"displayName": "puppet-sec-lint-vscode",
 	"description": "Security linter VSCode extension for Puppet",
 	"publisher": "tiago1998",
-	"version": "0.0.1",
+	"version": "0.5.0",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
