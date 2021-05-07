@@ -1,6 +1,6 @@
 'use strict';
 
-import { workspace, ExtensionContext } from 'vscode';
+import { workspace, ExtensionContext, window } from 'vscode';
 
 import {
 	LanguageClient,
@@ -14,16 +14,6 @@ let client: LanguageClient;
 let cp: any;
 
 export async function activate(context: ExtensionContext) {
-
-	// run puppet-sec-lint
-	cp = require('child_process');
-	cp.exec('puppet-sec-lint', (err:any, stdout:any, stderr:any) => {
-		console.log('stdout: ' + stdout);
-		console.log('stderr: ' + stderr);
-		if (err) {
-			console.log('error: ' + err);
-		}
-	});
 
 	const connectionInfo = {
         port: 5007
@@ -51,11 +41,22 @@ export async function activate(context: ExtensionContext) {
 
 	// Create the language client and start the client.
 	client = new LanguageClient(
-		'languageServerExample',
-		'Language Server Example',
+		'puppet-sec-lint',
+		'Puppet Security Linter',
 		serverOptions,
 		clientOptions
 	);
+
+	// run puppet-sec-lint
+	cp = require('child_process');
+	cp.exec('puppet-sec-lints', (err:any, stdout:any, stderr:any) => {
+		client.outputChannel.appendLine('stdout: ' + stdout);
+		client.outputChannel.appendLine('stderr: ' + stderr);
+		if (err) {
+			client.outputChannel.appendLine('Error running the ruby gem command:\n ' + err);
+			client.outputChannel.appendLine('Please make sure that the \'puppet-sec-lint\' gem is installed and working correctly.\n');
+		}
+	});
 
 	// Start the client. This will also launch the server
 	setTimeout(() => {  client.start(); }, 1000);
