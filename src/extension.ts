@@ -49,7 +49,7 @@ export async function activate(context: ExtensionContext) {
 
 	// run puppet-sec-lint
 	cp = require('child_process');
-	cp.exec('puppet-sec-lints', (err:any, stdout:any, stderr:any) => {
+	cp.exec('puppet-sec-lint', (err:any, stdout:any, stderr:any) => {
 		client.outputChannel.appendLine('stdout: ' + stdout);
 		client.outputChannel.appendLine('stderr: ' + stderr);
 		if (err) {
