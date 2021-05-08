@@ -12,9 +12,9 @@ import * as net from 'net';
 
 let client: LanguageClient;
 let cp: any;
+let outputChannel = window.createOutputChannel("Puppet Security Linter");
 
 export async function activate(context: ExtensionContext) {
-
 
 	var fp = require("find-free-port");
 	fp(3000, function(err:any, freePort:any){
@@ -56,7 +56,7 @@ export async function activate(context: ExtensionContext) {
 
 		// run puppet-sec-lint
 		cp = require('child_process');
-		cp.exec('puppet-sec-lint -p '+freePort, (err:any, stdout:any, stderr:any) => {
+		var child = cp.exec('puppet-sec-lint -p '+freePort, (err:any, stdout:any, stderr:any) => {
 			client.outputChannel.appendLine('stdout: ' + stdout);
 			client.outputChannel.appendLine('stderr: ' + stderr);
 			if (err) {
@@ -64,6 +64,13 @@ export async function activate(context: ExtensionContext) {
 				client.outputChannel.appendLine('Please make sure that the \'puppet-sec-lint\' gem is installed and working correctly.\n');
 			}
 		});
+
+		child.stdout.on('data', function (data:any) {
+			if(data.toString().includes('-------------')) //TODO: Set a log option so that communications are not visible in vscode and this condition can be removed
+				{outputChannel.appendLine(data.toString().split('-------------')[0]);}
+		});
+
+		outputChannel.show(true);
 
 		// Start the client. This will also launch the server
 		setTimeout(() => {  client.start(); }, 1000);
@@ -78,5 +85,7 @@ export function deactivate(): Thenable<void> | undefined {
 		return undefined;
 	}
 	cp.stop();
+	outputChannel.clear();
+	outputChannel.hide();
 	return client.stop();
 }
