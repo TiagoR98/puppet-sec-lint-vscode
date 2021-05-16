@@ -66,8 +66,11 @@ export async function activate(context: ExtensionContext) {
 		});
 
 		child.stdout.on('data', function (data:any) {
-			if(data.toString().includes('-------------')) //TODO: Set a log option so that communications are not visible in vscode and this condition can be removed
-				{outputChannel.appendLine(data.toString().split('-------------')[0]);}
+			outputChannel.appendLine(data);
+		});
+
+		child.stderr.on('data', function (data:any) {
+			outputChannel.appendLine(data);
 		});
 
 		outputChannel.show(true);
