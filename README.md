@@ -10,16 +10,16 @@ More information on how to configure the linter can be found at the [official gi
 
 When an Puppet (.pp) file is created or opened, the extension automatically starts running in real time. 
 
-When a security vulnerabilty is detectes, a warning is imediately displayed, accompanied by a underline in the affected code.
+When a security vulnerabilty is detected, a warning is imediately displayed, accompanied by an underline on the affected code.
 
-![puppet-sec-lint-vscode-window](images/puppet-sec-lint-vscode-window.png)
+![puppet-sec-lint-vscode-window](https://raw.githubusercontent.com/TiagoR98/puppet-sec-lint-vscode/master/images/puppet-sec-lint-vscode-window.png?token=ADDVYT6I73MDKDQW2JB5FWTAVQR5M)
 
-By clicking on the link present in the warning, it's possible to consult a page with more information reagrding the vulnerabilities, how could they be exploited and solutions to mitigate or solve them.
+By clicking on the link present in the warning, it's possible to consult a page with more information reagrding the vulnerabilities, how they could be exploited and solutions to mitigate or solve them.
 
-![puppet-sec-lint-vscode-vuln-page-link](images/puppet-sec-lint-vscode-vuln-page-link.png)
+![puppet-sec-lint-vscode-vuln-page-link](https://raw.githubusercontent.com/TiagoR98/puppet-sec-lint-vscode/master/images/puppet-sec-lint-vscode-vuln-page-link.png?token=ADDVYTZW4DIXBEM7J4VFQATAVQR5Q)
 
 
-![puppet-sec-lint-vscode-vuln-page](images/puppet-sec-lint-vscode-vuln-page.png)
+![puppet-sec-lint-vscode-vuln-page](https://raw.githubusercontent.com/TiagoR98/puppet-sec-lint-vscode/master/images/puppet-sec-lint-vscode-vuln-page.png?token=ADDVYTYDIHCW5SGIF3GRPVLAVQR5Y)
 
 
 ## Release Notes
