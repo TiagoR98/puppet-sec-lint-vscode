@@ -1,70 +1,29 @@
-# puppet-sec-lint-vscode README
+# Puppet Security Linter for Visual Studio Code
 
-This is the new README for your extension "puppet-sec-lint-vscode". After writing up a brief description, we recommend including the following sections.
+This extension integrates the [Puppet Security Linter](https://github.com/TiagoR98/puppet-sec-lint) analysis right into Visual Studio Code, ensuring a perfect continuity in a developer's workflow.
+
+The extension uses the [puppet-sec-lint gem](https://rubygems.org/gems/puppet-sec-lint) installed on the local computer. If the gem is not yet installed on the computer, install it by running <code>gem install puppet-sec-lint</code>. 
+
+More information on how to configure the linter can be found at the [official github repository]((https://rubygems.org/gems/puppet-sec-lint)).
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+When an Puppet (.pp) file is created or opened, the extension automatically starts running in real time. 
 
-For example if there is an image subfolder under your extension project workspace:
+When a security vulnerabilty is detectes, a warning is imediately displayed, accompanied by a underline in the affected code.
 
-\!\[feature X\]\(images/feature-x.png\)
+![puppet-sec-lint-vscode-window](images/puppet-sec-lint-vscode-window.png)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+By clicking on the link present in the warning, it's possible to consult a page with more information reagrding the vulnerabilities, how could they be exploited and solutions to mitigate or solve them.
 
-## Requirements
+![puppet-sec-lint-vscode-vuln-page-link](images/puppet-sec-lint-vscode-vuln-page-link.png)
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
-## Extension Settings
+![puppet-sec-lint-vscode-vuln-page](images/puppet-sec-lint-vscode-vuln-page.png)
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+To be released

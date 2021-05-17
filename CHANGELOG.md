@@ -1,9 +1,17 @@
-# Change Log
+# Changelog
+All notable changes to this project will be documented in this file.
 
-All notable changes to the "puppet-sec-lint-vscode" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
 
-- Initial release
+## [1.0.0] - TBD
+### Added
+- TBD
+
+### Changed
+- TBD
+
+### Removed
+- TBD
+
+[Unreleased]: 
