@@ -5,19 +5,23 @@ import { workspace, ExtensionContext, window } from 'vscode';
 import {
 	LanguageClient,
 	LanguageClientOptions,
+	SemanticTokenModifiers,
 	StreamInfo
 } from 'vscode-languageclient/node';
 
 import * as net from 'net';
+import { allowedNodeEnvironmentFlags } from 'node:process';
+import { start } from 'node:repl';
 
 let client: LanguageClient;
 let cp: any;
-let outputChannel = window.createOutputChannel("Puppet Security Linter");
 
 export async function activate(context: ExtensionContext) {
 
 	var fp = require("find-free-port");
-	fp(3000, function(err:any, freePort:any){
+	var started = false
+
+	fp(100, function(err:any, freePort:any){
 
 		if(err)
 			{throw err;}
@@ -56,28 +60,25 @@ export async function activate(context: ExtensionContext) {
 
 		// run puppet-sec-lint
 		cp = require('child_process');
-		var child = cp.exec('puppet-sec-lint -p '+freePort, (err:any, stdout:any, stderr:any) => {
-			client.outputChannel.appendLine('stdout: ' + stdout);
-			client.outputChannel.appendLine('stderr: ' + stderr);
-			if (err) {
-				client.outputChannel.appendLine('Error running the ruby gem command:\n ' + err);
-				client.outputChannel.appendLine('Please make sure that the \'puppet-sec-lint\' gem is installed and working correctly.\n');
-			}
-		});
+
+		if(process.platform === "win32")
+			cp.exec('puppet-sec-lint -p '+freePort);
+
+		var child = cp.exec('puppet-sec-lint -p '+freePort);
 
 		child.stdout.on('data', function (data:any) {
-			outputChannel.appendLine(data);
+			client.outputChannel.appendLine(data);
 		});
 
 		child.stderr.on('data', function (data:any) {
-			outputChannel.appendLine(data);
+			client.outputChannel.appendLine(data);
+			client.outputChannel.appendLine('Error running the ruby gem command:\n ' + err);
+			client.outputChannel.appendLine('Please make sure that the \'puppet-sec-lint\' gem is installed and working correctly.\n');
 		});
 
-		outputChannel.show(true);
+		client.outputChannel.show(true);
 
-		// Start the client. This will also launch the server
-		setTimeout(() => {  client.start(); }, 1000);
-
+		setTimeout(() => {  client.start(); }, 3000);
 	});
 
 
@@ -88,7 +89,5 @@ export function deactivate(): Thenable<void> | undefined {
 		return undefined;
 	}
 	cp.stop();
-	outputChannel.clear();
-	outputChannel.hide();
 	return client.stop();
 }
