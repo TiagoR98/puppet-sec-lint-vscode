@@ -21,7 +21,7 @@ export async function activate(context: ExtensionContext) {
 	var fp = require("find-free-port");
 	var started = false
 
-	fp(100, function(err:any, freePort:any){
+	fp(3000, function(err:any, freePort:any){
 
 		if(err)
 			{throw err;}
@@ -61,8 +61,9 @@ export async function activate(context: ExtensionContext) {
 		// run puppet-sec-lint
 		cp = require('child_process');
 
-		if(process.platform === "win32")
+		if(process.platform === "win32"){
 			cp.exec('puppet-sec-lint -p '+freePort);
+		}
 
 		var child = cp.exec('puppet-sec-lint -p '+freePort);
 
