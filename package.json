@@ -4,7 +4,7 @@
 	"description": "Security linter VSCode extension for Puppet",
 	"publisher": "tiago1998",
 	"icon": "images/logo.png",
-	"version": "0.5.9",
+	"version": "0.6.0",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
