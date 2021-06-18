@@ -12,18 +12,18 @@ When an Puppet (.pp) file is created or opened, the extension automatically star
 
 When a security vulnerabilty is detected, a warning is imediately displayed, accompanied by an underline on the affected code.
 
-![puppet-sec-lint-vscode-window](https://raw.githubusercontent.com/TiagoR98/puppet-sec-lint-vscode/master/images/puppet-sec-lint-vscode-window.png?token=ADDVYT6I73MDKDQW2JB5FWTAVQR5M)
+![puppet-sec-lint-vscode-window](https://github.com/TiagoR98/puppet-sec-lint-vscode/blob/master/images/puppet-sec-lint-vscode-window.png?raw=true)
 
 By clicking on the link present in the warning, it's possible to consult a page with more information reagrding the vulnerabilities, how they could be exploited and solutions to mitigate or solve them.
 
-![puppet-sec-lint-vscode-vuln-page-link](https://raw.githubusercontent.com/TiagoR98/puppet-sec-lint-vscode/master/images/puppet-sec-lint-vscode-vuln-page-link.png?token=ADDVYTZW4DIXBEM7J4VFQATAVQR5Q)
+![puppet-sec-lint-vscode-vuln-page-link](https://github.com/TiagoR98/puppet-sec-lint-vscode/blob/master/images/puppet-sec-lint-vscode-vuln-page-link.png?raw=true)
 
 
-![puppet-sec-lint-vscode-vuln-page](https://raw.githubusercontent.com/TiagoR98/puppet-sec-lint-vscode/master/images/puppet-sec-lint-vscode-vuln-page.png?token=ADDVYTYDIHCW5SGIF3GRPVLAVQR5Y)
+![puppet-sec-lint-vscode-vuln-page](https://github.com/TiagoR98/puppet-sec-lint-vscode/blob/master/images/puppet-sec-lint-vscode-vuln-page.png?raw=true)
 
 
 ## Release Notes
 
 ### 1.0.0
 
-To be released
+Initial release. It supports the real time analysis of any Puppet Manifest open in Visual Studio code.
